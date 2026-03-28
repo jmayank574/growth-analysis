@@ -1,0 +1,6 @@
+stage,count,stage_order,pct_of_total,pct_of_previous,drop_off
+Leads generated,8000,1,100.0,100.0,0.0
+Leads with contact date,3058,2,38.22,-61.78,4942.0
+Closed deals,842,3,10.52,-72.47,2216.0
+Made first order,380,4,4.75,-54.87,462.0
+Repeat seller (3+ orders),252,5,3.15,-33.68,128.0
