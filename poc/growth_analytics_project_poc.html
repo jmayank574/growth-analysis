@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth Analytics Project — POC Roadmap</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a18; min-height: 100vh; padding: 32px 16px; }
+  .container { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 600; color: #1a1a18; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #6b6a64; margin-bottom: 32px; }
+
+  /* Stage nav */
+  .stage-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .snav-btn { padding: 7px 16px; border-radius: 20px; border: 1px solid #d3d1c7; background: #fff; color: #6b6a64; font-size: 12px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .snav-btn:hover { background: #f0efe8; }
+  .snav-btn.active { background: #1a5fa8; color: #fff; border-color: #1a5fa8; }
+
+  /* Panel */
+  .stage-panel { display: none; }
+  .stage-panel.active { display: block; }
+
+  /* Stage header */
+  .stage-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
+  .stage-num { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+  .stage-title { font-size: 17px; font-weight: 600; color: #1a1a18; margin-bottom: 5px; }
+  .stage-sub { font-size: 13px; color: #6b6a64; line-height: 1.6; }
+
+  /* Section label */
+  .section-label { font-size: 11px; font-weight: 600; color: #9c9a92; text-transform: uppercase; letter-spacing: .06em; margin: 18px 0 10px; }
+
+  /* Flow row */
+  .flow-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+  .flow-box { padding: 7px 13px; border-radius: 8px; font-size: 12px; font-weight: 500; border: 1px solid #d3d1c7; background: #fff; color: #1a1a18; white-space: nowrap; }
+  .flow-arrow { color: #b4b2a9; font-size: 16px; font-weight: 300; }
+
+  /* Cards grid */
+  .cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 4px; }
+  .cards-row-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 4px; }
+  .card { background: #fff; border-radius: 10px; padding: 14px 16px; border: 1px solid #e8e6e0; }
+  .card-label { font-size: 10px; font-weight: 600; color: #9c9a92; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .card-val { font-size: 13px; font-weight: 500; color: #1a1a18; line-height: 1.4; }
+  .card-sub { font-size: 11px; color: #9c9a92; margin-top: 5px; line-height: 1.4; }
+
+  /* Tool pills */
+  .tool-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .tool-pill { padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 500; }
+  .pill-sql { background: #dbeafe; color: #1e3a8a; }
+  .pill-py  { background: #dcfce7; color: #14532d; }
+  .pill-stat{ background: #ede9fe; color: #3b0764; }
+  .pill-dash{ background: #fef9c3; color: #713f12; }
+
+  /* Highlight box */
+  .highlight-box { background: #eff6ff; border-left: 3px solid #3b82f6; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; font-size: 13px; color: #1e3a8a; line-height: 1.65; }
+
+  /* Output cards */
+  .output-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .output-card { background: #fff; border: 1px solid #e8e6e0; border-radius: 8px; padding: 11px 14px; }
+  .output-title { font-size: 12px; font-weight: 600; color: #1a1a18; margin-bottom: 4px; }
+  .output-desc  { font-size: 11px; color: #6b6a64; line-height: 1.5; }
+
+  /* Funnel */
+  .funnel-wrap { margin: 4px 0 16px; }
+  .funnel-stage { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .funnel-label { font-size: 12px; color: #6b6a64; width: 170px; text-align: right; flex-shrink: 0; }
+  .funnel-bar-wrap { flex: 1; height: 30px; background: #f0efe8; border-radius: 5px; overflow: hidden; }
+  .funnel-bar { height: 100%; border-radius: 5px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 600; }
+  .funnel-pct { font-size: 11px; color: #9c9a92; width: 80px; flex-shrink: 0; }
+
+  /* Channel pills */
+  .ch-organic  { border-color: #16a34a !important; color: #14532d !important; background: #f0fdf4 !important; }
+  .ch-paid     { border-color: #2563eb !important; color: #1e3a8a !important; background: #eff6ff !important; }
+  .ch-social   { border-color: #db2777 !important; color: #831843 !important; background: #fdf2f8 !important; }
+
+  /* Nav buttons */
+  .nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 18px; border-top: 1px solid #e8e6e0; }
+  .nav-btn { padding: 8px 20px; border-radius: 8px; border: 1px solid #d3d1c7; background: #fff; color: #1a1a18; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all .15s; }
+  .nav-btn:hover { background: #f0efe8; }
+  .nav-btn.primary { background: #1a5fa8; color: #fff; border-color: #1a5fa8; }
+  .nav-btn.primary:hover { background: #1751910; }
+  .nav-btn.green { background: #16a34a; color: #fff; border-color: #16a34a; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid #e8e6e0; margin: 16px 0; }
+
+  /* Full stack row */
+  .stack-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px; background: #fff; border: 1px solid #e8e6e0; border-radius: 10px; }
+  .stack-item { padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; }
+
+  /* Progress bar at top */
+  .progress-row { display: flex; gap: 4px; margin-bottom: 24px; }
+  .prog-seg { height: 3px; flex: 1; border-radius: 2px; background: #e8e6e0; transition: background .3s; }
+  .prog-seg.done { background: #1a5fa8; }
+
+  @media (max-width: 600px) {
+    .cards-row { grid-template-columns: 1fr; }
+    .cards-row-2 { grid-template-columns: 1fr; }
+    .output-row { grid-template-columns: 1fr; }
+    .funnel-label { width: 110px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Growth Analytics Project — POC Roadmap</h1>
+  <p class="subtitle">Olist datasets · 6-stage build plan · Click through each stage</p>
+
+  <div class="progress-row" id="progressRow">
+    <div class="prog-seg done" id="prog0"></div>
+    <div class="prog-seg" id="prog1"></div>
+    <div class="prog-seg" id="prog2"></div>
+    <div class="prog-seg" id="prog3"></div>
+    <div class="prog-seg" id="prog4"></div>
+    <div class="prog-seg" id="prog5"></div>
+  </div>
+
+  <div class="stage-nav" id="stageNav">
+    <button class="snav-btn active" onclick="goTo(0)">1 · Data foundation</button>
+    <button class="snav-btn" onclick="goTo(1)">2 · Channel attribution</button>
+    <button class="snav-btn" onclick="goTo(2)">3 · Funnel analysis</button>
+    <button class="snav-btn" onclick="goTo(3)">4 · CAC / LTV</button>
+    <button class="snav-btn" onclick="goTo(4)">5 · Segmentation</button>
+    <button class="snav-btn" onclick="goTo(5)">6 · Dashboard</button>
+  </div>
+
+  <!-- STAGE 1 -->
+  <div class="stage-panel active" id="p0">
+    <div class="stage-header">
+      <div class="stage-num" style="background:#d1fae5;color:#065f46">1</div>
+      <div>
+        <div class="stage-title">Data foundation — load, clean, unify</div>
+        <div class="stage-sub">Before any analysis, we build a single clean master table that joins all 11 files together. Every downstream module reads from this.</div>
+      </div>
+    </div>
+    <div class="section-label">what we do</div>
+    <div class="flow-row">
+      <div class="flow-box">Load all CSVs</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Standardise dates</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Translate categories</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Join on mql_id + seller_id + order_id</div><div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#16a34a;color:#14532d;background:#f0fdf4;font-weight:600">Master table</div>
+    </div>
+    <div class="section-label">tools</div>
+    <div class="tool-row">
+      <span class="tool-pill pill-py">pandas</span>
+      <span class="tool-pill pill-sql">SQLite / DuckDB</span>
+      <span class="tool-pill pill-py">numpy</span>
+      <span class="tool-pill pill-stat">missingno (nulls viz)</span>
+    </div>
+    <div class="section-label">key checks we run</div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-label">null audit</div>
+        <div class="card-val">Which columns have missing values and why</div>
+        <div class="card-sub">declared_revenue is mostly null — expected</div>
+      </div>
+      <div class="card">
+        <div class="card-label">join integrity</div>
+        <div class="card-val">How many MQLs have a matching closed deal</div>
+        <div class="card-sub">This is your raw conversion rate</div>
+      </div>
+      <div class="card">
+        <div class="card-label">date ranges</div>
+        <div class="card-val">Confirm data spans Jun 2017 – Sep 2018</div>
+        <div class="card-sub">Flag any outliers or bad timestamps</div>
+      </div>
+    </div>
+    <div class="highlight-box">Output: a unified DataFrame + SQLite database that all 5 subsequent modules query from. One source of truth.</div>
+    <div class="nav-btns"><span></span><button class="nav-btn primary" onclick="goTo(1)">Next: Channel attribution →</button></div>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="stage-panel" id="p1">
+    <div class="stage-header">
+      <div class="stage-num" style="background:#dbeafe;color:#1e3a8a">2</div>
+      <div>
+        <div class="stage-title">Channel attribution — which source drives real conversions</div>
+        <div class="stage-sub">We have 7 acquisition channels in the origin column. We build 3 attribution models and compare how each tells a different story about channel value.</div>
+      </div>
+    </div>
+    <div class="section-label">3 models we build</div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-label">model 1 · last touch</div>
+        <div class="card-val">100% credit to origin channel</div>
+        <div class="card-sub">Simplest — already in our data</div>
+      </div>
+      <div class="card">
+        <div class="card-label">model 2 · linear MTA</div>
+        <div class="card-val">Equal credit across landing pages visited</div>
+        <div class="card-sub">Uses landing_page_id as touchpoint proxy</div>
+      </div>
+      <div class="card">
+        <div class="card-label">model 3 · Markov chain</div>
+        <div class="card-val">Data-driven removal effect per channel</div>
+        <div class="card-sub">Shows true incremental value per channel</div>
+      </div>
+    </div>
+    <div class="section-label">channels in our data</div>
+    <div class="flow-row">
+      <div class="flow-box ch-organic">organic_search</div>
+      <div class="flow-box ch-paid">paid_search</div>
+      <div class="flow-box ch-social">social</div>
+      <div class="flow-box">email</div>
+      <div class="flow-box">direct_traffic</div>
+      <div class="flow-box">referral</div>
+      <div class="flow-box" style="color:#9c9a92">unknown</div>
+    </div>
+    <div class="section-label">tools</div>
+    <div class="tool-row">
+      <span class="tool-pill pill-py">pandas + groupby</span>
+      <span class="tool-pill pill-stat">ChannelAttribution (Python)</span>
+      <span class="tool-pill pill-sql">SQL window functions</span>
+      <span class="tool-pill pill-dash">matplotlib / seaborn</span>
+    </div>
+    <div class="section-label">outputs</div>
+    <div class="output-row">
+      <div class="output-card"><div class="output-title">Conversion rate by channel</div><div class="output-desc">MQL → closed deal % for each origin</div></div>
+      <div class="output-card"><div class="output-title">Revenue attributed per channel</div><div class="output-desc">Using Markov removal effect weights</div></div>
+      <div class="output-card"><div class="output-title">Channel comparison table</div><div class="output-desc">Last-touch vs linear vs Markov side by side</div></div>
+      <div class="output-card"><div class="output-title">True channel ROI</div><div class="output-desc">Revenue per channel / estimated spend proxy</div></div>
+    </div>
+    <div class="nav-btns"><button class="nav-btn" onclick="goTo(0)">← Back</button><button class="nav-btn primary" onclick="goTo(2)">Next: Funnel analysis →</button></div>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="stage-panel" id="p2">
+    <div class="stage-header">
+      <div class="stage-num" style="background:#ede9fe;color:#3b0764">3</div>
+      <div>
+        <div class="stage-title">Full funnel analysis — where leads drop off and why</div>
+        <div class="stage-sub">We reconstruct the complete seller acquisition funnel from first contact to revenue, measuring drop-off at every stage using SQL and Python.</div>
+      </div>
+    </div>
+    <div class="section-label">the funnel we reconstruct</div>
+    <div class="funnel-wrap" id="funnelWrap"></div>
+    <div class="section-label">3 layers of analysis</div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-label">layer 1 · volume funnel</div>
+        <div class="card-val">How many leads enter and exit each stage</div>
+        <div class="card-sub">SQL: COUNT + LEFT JOIN to find drop-offs</div>
+      </div>
+      <div class="card">
+        <div class="card-label">layer 2 · cohort funnel</div>
+        <div class="card-val">Conversion rates grouped by month acquired</div>
+        <div class="card-sub">Do Jan cohorts convert better than June?</div>
+      </div>
+      <div class="card">
+        <div class="card-label">layer 3 · segment funnel</div>
+        <div class="card-val">Conversion rates by channel, segment, lead type</div>
+        <div class="card-sub">Does paid_search convert faster than organic?</div>
+      </div>
+    </div>
+    <div class="section-label">experiment design layer</div>
+    <div class="highlight-box">We treat the 8 unique landing pages (landing_page_id) as a natural A/B test. Using chi-square significance testing in Python we determine which landing pages statistically outperform others on conversion rate — without needing to run a new experiment.</div>
+    <div class="section-label">tools</div>
+    <div class="tool-row">
+      <span class="tool-pill pill-sql">SQL CTEs + window functions</span>
+      <span class="tool-pill pill-py">pandas pivot_table</span>
+      <span class="tool-pill pill-stat">scipy.stats (chi-square, t-test)</span>
+      <span class="tool-pill pill-dash">plotly funnel charts</span>
+    </div>
+    <div class="nav-btns"><button class="nav-btn" onclick="goTo(1)">← Back</button><button class="nav-btn primary" onclick="goTo(3)">Next: CAC / LTV →</button></div>
+  </div>
+
+  <!-- STAGE 4 -->
+  <div class="stage-panel" id="p3">
+    <div class="stage-header">
+      <div class="stage-num" style="background:#fef9c3;color:#713f12">4</div>
+      <div>
+        <div class="stage-title">CAC / LTV modeling — true unit economics per channel</div>
+        <div class="stage-sub">We calculate what it costs to acquire each seller (CAC) and how much revenue they generate over time (LTV), then compare the ratio by channel and segment.</div>
+      </div>
+    </div>
+    <div class="section-label">how we calculate LTV</div>
+    <div class="flow-row">
+      <div class="flow-box">seller_id from closed deals</div><div class="flow-arrow">→</div>
+      <div class="flow-box">join order_items</div><div class="flow-arrow">→</div>
+      <div class="flow-box">sum(price) per seller</div><div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#d97706;color:#713f12;background:#fffbeb;font-weight:600">LTV = total revenue</div>
+    </div>
+    <div class="section-label">how we approximate CAC</div>
+    <div class="flow-row">
+      <div class="flow-box">leads per channel</div><div class="flow-arrow">→</div>
+      <div class="flow-box">conversions per channel</div><div class="flow-arrow">→</div>
+      <div class="flow-box">relative CAC index</div><div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#d97706;color:#713f12;background:#fffbeb;font-weight:600">LTV : CAC ratio</div>
+    </div>
+    <div class="section-label">what we output</div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-label">LTV distribution</div>
+        <div class="card-val">Revenue histogram per seller</div>
+        <div class="card-sub">Who are the top 20%?</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LTV by segment</div>
+        <div class="card-val">Health_beauty vs pet vs computers</div>
+        <div class="card-sub">Who's most valuable long-term?</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LTV by channel</div>
+        <div class="card-val">Does organic bring higher-LTV sellers?</div>
+        <div class="card-sub">Compared to paid_search or social</div>
+      </div>
+    </div>
+    <div class="section-label">tools</div>
+    <div class="tool-row">
+      <span class="tool-pill pill-sql">SQL aggregations</span>
+      <span class="tool-pill pill-py">pandas + numpy</span>
+      <span class="tool-pill pill-stat">lifetimes (BG/NBD model)</span>
+      <span class="tool-pill pill-dash">seaborn boxplots</span>
+    </div>
+    <div class="nav-btns"><button class="nav-btn" onclick="goTo(2)">← Back</button><button class="nav-btn primary" onclick="goTo(4)">Next: Segmentation →</button></div>
+  </div>
+
+  <!-- STAGE 5 -->
+  <div class="stage-panel" id="p4">
+    <div class="stage-header">
+      <div class="stage-num" style="background:#ffe4e6;color:#881337">5</div>
+      <div>
+        <div class="stage-title">Audience segmentation — cluster sellers into actionable groups</div>
+        <div class="stage-sub">We use unsupervised ML to find natural groupings of sellers, then build a lookalike profile of the top-LTV segment for future acquisition targeting.</div>
+      </div>
+    </div>
+    <div class="section-label">features we use for clustering</div>
+    <div class="flow-row">
+      <div class="flow-box">business_segment</div>
+      <div class="flow-box">lead_type</div>
+      <div class="flow-box">business_type</div>
+      <div class="flow-box">LTV (computed)</div>
+      <div class="flow-box">time to convert</div>
+      <div class="flow-box">order volume</div>
+      <div class="flow-box">avg review score</div>
+    </div>
+    <div class="section-label">2 approaches</div>
+    <div class="cards-row-2">
+      <div class="card">
+        <div class="card-label">RFM segmentation</div>
+        <div class="card-val">Recency · Frequency · Monetary value</div>
+        <div class="card-sub">Classic, interpretable, SQL-friendly</div>
+      </div>
+      <div class="card">
+        <div class="card-label">K-means clustering</div>
+        <div class="card-val">ML on multi-feature seller profiles</div>
+        <div class="card-sub">Finds non-obvious groupings in data</div>
+      </div>
+    </div>
+    <div class="section-label">lookalike modeling</div>
+    <div class="highlight-box">Once we identify the top-LTV seller cluster, we profile their shared characteristics (segment, lead_type, origin channel, behaviour_profile). This becomes a lookalike spec for future acquisition targeting — in a real startup this feeds back into Meta or Google ad targeting.</div>
+    <div class="section-label">tools</div>
+    <div class="tool-row">
+      <span class="tool-pill pill-stat">scikit-learn KMeans</span>
+      <span class="tool-pill pill-stat">PCA (dimensionality reduction)</span>
+      <span class="tool-pill pill-py">sklearn preprocessing</span>
+      <span class="tool-pill pill-dash">plotly scatter (cluster viz)</span>
+    </div>
+    <div class="nav-btns"><button class="nav-btn" onclick="goTo(3)">← Back</button><button class="nav-btn primary" onclick="goTo(5)">Next: Dashboard →</button></div>
+  </div>
+
+  <!-- STAGE 6 -->
+  <div class="stage-panel" id="p5">
+    <div class="stage-header">
+      <div class="stage-num" style="background:#f3f4f6;color:#374151">6</div>
+      <div>
+        <div class="stage-title">Internal dashboard — automated reporting tool</div>
+        <div class="stage-sub">Everything we build gets packaged into a Streamlit dashboard that any non-technical stakeholder can use. This is the final deliverable.</div>
+      </div>
+    </div>
+    <div class="section-label">4 dashboard tabs</div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-label">tab 1</div>
+        <div class="card-val">Funnel overview</div>
+        <div class="card-sub">Live conversion rates by stage, channel, time period</div>
+      </div>
+      <div class="card">
+        <div class="card-label">tab 2</div>
+        <div class="card-val">Attribution comparison</div>
+        <div class="card-sub">Last-touch vs Markov side by side — toggle models</div>
+      </div>
+      <div class="card">
+        <div class="card-label">tab 3</div>
+        <div class="card-val">CAC / LTV tracker</div>
+        <div class="card-sub">Filter by channel, segment, date range</div>
+      </div>
+    </div>
+    <div class="section-label">full project tech stack</div>
+    <div class="stack-row">
+      <span class="stack-item" style="background:#dcfce7;color:#14532d">Python — pandas, numpy, scikit-learn</span>
+      <span style="color:#9c9a92;font-size:13px">+</span>
+      <span class="stack-item" style="background:#dbeafe;color:#1e3a8a">SQL — DuckDB / SQLite</span>
+      <span style="color:#9c9a92;font-size:13px">+</span>
+      <span class="stack-item" style="background:#ede9fe;color:#3b0764">scipy · lifetimes · ChannelAttribution</span>
+      <span style="color:#9c9a92;font-size:13px">+</span>
+      <span class="stack-item" style="background:#fef9c3;color:#713f12">Streamlit + plotly</span>
+    </div>
+    <div class="highlight-box" style="background:#f0fdf4;border-color:#16a34a;color:#14532d">This single project covers every requirement: attribution modeling, funnel analysis, experiment design, CAC/LTV, ML segmentation, and an automated reporting tool.</div>
+    <div class="nav-btns">
+      <button class="nav-btn" onclick="goTo(4)">← Back</button>
+      
+    </div>
+  </div>
+
+</div>
+
+<script>
+const stages = ['p0','p1','p2','p3','p4','p5'];
+const btns = document.querySelectorAll('.snav-btn');
+const progs = document.querySelectorAll('.prog-seg');
+
+function goTo(i) {
+  stages.forEach((id, j) => {
+    document.getElementById(id).className = 'stage-panel' + (j===i ? ' active' : '');
+    btns[j].className = 'snav-btn' + (j===i ? ' active' : '');
+    progs[j].className = 'prog-seg' + (j<=i ? ' done' : '');
+  });
+  if (i === 2) renderFunnel();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+const funnelData = [
+  {label: 'Leads generated',         n: 8000, color: '#16a34a', text: '#14532d'},
+  {label: 'Sales contacted',          n: 3200, color: '#2563eb', text: '#1e3a8a'},
+  {label: 'Deals closed',             n: 842,  color: '#7c3aed', text: '#3b0764'},
+  {label: 'First order placed',       n: 601,  color: '#d97706', text: '#713f12'},
+  {label: 'Repeat seller (3+ orders)',n: 220,  color: '#dc2626', text: '#7f1d1d'},
+];
+
+function renderFunnel() {
+  const wrap = document.getElementById('funnelWrap');
+  if (wrap.children.length > 0) return;
+  const max = funnelData[0].n;
+  funnelData.forEach((d, i) => {
+    const pct = Math.round(d.n / max * 100);
+    const convLabel = i === 0 ? '100% — top of funnel' : Math.round(d.n / funnelData[i-1].n * 100) + '% of previous stage';
+    const div = document.createElement('div');
+    div.className = 'funnel-stage';
+    div.innerHTML = `
+      <div class="funnel-label">${d.label}</div>
+      <div class="funnel-bar-wrap">
+        <div class="funnel-bar" style="width:${pct}%;background:${d.color};color:${d.text}">
+          ${d.n.toLocaleString()}
+        </div>
+      </div>
+      <div class="funnel-pct">${convLabel}</div>`;
+    wrap.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
