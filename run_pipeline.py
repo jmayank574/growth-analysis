@@ -27,33 +27,38 @@ log = logging.getLogger("pipeline")
 # ── PIPELINE STAGES ───────────────────────────────────────────────────────────
 STAGES = [
     {
+        "name":        "Stage 0 — Build database",
+        "script":      "build_database.py",
+        "description": "Load all CSVs into olist_analytics.db — 21 tables, single source of truth"
+    },
+    {
         "name":        "Stage 1 — Data foundation",
-        "notebook":    "01_data_foundation.ipynb",
+        "notebook":    "notebooks/01_data_foundation.ipynb",
         "description": "Load all CSVs, null audit, build master table"
     },
     {
         "name":        "Stage 2 — Channel attribution",
-        "notebook":    "02_channel_attribution.ipynb",
+        "notebook":    "notebooks/02_channel_attribution.ipynb",
         "description": "Last touch, linear, and Markov chain attribution models"
     },
     {
         "name":        "Stage 3 — Funnel analysis",
-        "notebook":    "03_funnel_analysis.ipynb",
+        "notebook":    "notebooks/03_funnel_analysis.ipynb",
         "description": "Funnel volume, cohort analysis, landing page experiment"
     },
     {
         "name":        "Stage 4 — CAC / LTV",
-        "notebook":    "04_cac_ltv.ipynb",
+        "notebook":    "notebooks/04_cac_ltv.ipynb",
         "description": "Seller unit economics, LTV by channel and segment"
     },
     {
         "name":        "Stage 5 — Segmentation",
-        "notebook":    "05_segmentation.ipynb",
+        "notebook":    "notebooks/05_segmentation.ipynb",
         "description": "RFM scoring and K-means clustering"
     },
     {
         "name":        "Stage 6 — SQL analysis",
-        "notebook":    "07_sql_analysis.ipynb",
+        "notebook":    "notebooks/07_sql_analysis.ipynb",
         "description": "DuckDB queries — funnel, attribution, LTV, RFM, window functions"
     },
     {

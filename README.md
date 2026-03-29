@@ -10,13 +10,13 @@ End-to-end growth analytics project covering multi-channel attribution, funnel a
 
 | Stage | Notebook | Description |
 |-------|----------|-------------|
-| 1 | `01_data_foundation.ipynb` | Load, clean, and join all 11 datasets into a master table |
-| 2 | `02_channel_attribution.ipynb` | Last-touch, linear, and Markov chain attribution models |
-| 3 | `03_funnel_analysis.ipynb` | Funnel drop-off, cohort analysis, landing page A/B test |
-| 4 | `04_cac_ltv.ipynb` | CAC/LTV by channel and segment, Pareto analysis |
-| 5 | `05_segmentation.ipynb` | RFM scoring and K-means clustering with lookalike profile |
+| 1 | `notebooks/01_data_foundation.ipynb` | Load, clean, and join all 11 datasets into a master table |
+| 2 | `notebooks/02_channel_attribution.ipynb` | Last-touch, linear, and Markov chain attribution models |
+| 3 | `notebooks/03_funnel_analysis.ipynb` | Funnel drop-off, cohort analysis, landing page A/B test |
+| 4 | `notebooks/04_cac_ltv.ipynb` | CAC/LTV by channel and segment, Pareto analysis |
+| 5 | `notebooks/05_segmentation.ipynb` | RFM scoring and K-means clustering with lookalike profile |
 | 6 | `06_dashboard.py` | 4-tab Streamlit dashboard with live filters |
-| 7 | `07_sql_analysis.ipynb` | 10 DuckDB SQL queries — CTEs, window functions, NTILE |
+| 7 | `notebooks/07_sql_analysis.ipynb` | 10 DuckDB SQL queries — CTEs, window functions, NTILE |
 
 ## Automation
 ```bash
