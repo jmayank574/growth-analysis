@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
  
-DATA_PATH = r"C:\Users\Mayank Joshi\Downloads\Marketing_Channel_Project\data"
+DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
  
 @st.cache_data
 def load_data():
