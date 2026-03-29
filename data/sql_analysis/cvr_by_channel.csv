@@ -1,0 +1,11 @@
+channel,total_leads,conversions,cvr_pct,activated_sellers,activation_rate_pct,total_revenue,revenue_per_lead
+unknown,1159,193.0,16.65,85.0,44.0,214985.3,185.49
+paid_search,1586,195.0,12.3,101.0,51.8,155277.05,97.9
+organic_search,2296,271.0,11.8,113.0,41.7,207023.45,90.17
+direct_traffic,499,56.0,11.22,31.0,55.4,21903.9,43.9
+referral,284,24.0,8.45,9.0,37.5,17887.15,62.98
+social,1350,75.0,5.56,31.0,41.3,43477.99,32.21
+display,118,6.0,5.08,2.0,33.3,923.0,7.82
+other_publicities,65,3.0,4.62,0.0,0.0,0.0,0.0
+email,493,15.0,3.04,6.0,40.0,8484.99,17.21
+other,150,4.0,2.67,2.0,50.0,6888.65,45.92

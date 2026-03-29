@@ -1,0 +1,54 @@
+2026-03-28 19:39:12  INFO      =================================================================
+2026-03-28 19:39:12  INFO      GROWTH ANALYTICS PIPELINE — STARTING
+2026-03-28 19:39:12  INFO      Run date     : 28 March 2026, 19:39:12
+2026-03-28 19:39:12  INFO      Project root : C:\Users\Mayank Joshi\Downloads\Marketing_Channel_Project
+2026-03-28 19:39:12  INFO      Log file     : C:\Users\Mayank Joshi\Downloads\Marketing_Channel_Project\logs\pipeline_20260328_193912.log
+2026-03-28 19:39:12  INFO      Total stages : 7
+2026-03-28 19:39:12  INFO      =================================================================
+2026-03-28 19:39:12  INFO      
+2026-03-28 19:39:12  INFO      [1/7] Stage 1 — Data foundation
+2026-03-28 19:39:12  INFO               Load all CSVs, null audit, build master table
+2026-03-28 19:39:22  INFO               SUCCESS — completed in 10.0s
+2026-03-28 19:39:22  INFO      
+2026-03-28 19:39:22  INFO      [2/7] Stage 2 — Channel attribution
+2026-03-28 19:39:22  INFO               Last touch, linear, and Markov chain attribution models
+2026-03-28 19:39:29  INFO               SUCCESS — completed in 7.6s
+2026-03-28 19:39:29  INFO      
+2026-03-28 19:39:29  INFO      [3/7] Stage 3 — Funnel analysis
+2026-03-28 19:39:29  INFO               Funnel volume, cohort analysis, landing page experiment
+2026-03-28 19:39:37  INFO               SUCCESS — completed in 8.1s
+2026-03-28 19:39:37  INFO      
+2026-03-28 19:39:37  INFO      [4/7] Stage 4 — CAC / LTV
+2026-03-28 19:39:37  INFO               Seller unit economics, LTV by channel and segment
+2026-03-28 19:39:45  INFO               SUCCESS — completed in 7.9s
+2026-03-28 19:39:45  INFO      
+2026-03-28 19:39:45  INFO      [5/7] Stage 5 — Segmentation
+2026-03-28 19:39:45  INFO               RFM scoring and K-means clustering
+2026-03-28 19:39:55  INFO               SUCCESS — completed in 9.4s
+2026-03-28 19:39:55  INFO      
+2026-03-28 19:39:55  INFO      [6/7] Stage 6 — SQL analysis
+2026-03-28 19:39:55  INFO               DuckDB queries — funnel, attribution, LTV, RFM, window functions
+2026-03-28 19:40:02  INFO               SUCCESS — completed in 7.3s
+2026-03-28 19:40:02  INFO      
+2026-03-28 19:40:02  INFO      [7/7] Stage 7 — Report generation
+2026-03-28 19:40:02  INFO               Auto-generate Word document summary of all findings
+2026-03-28 19:40:03  INFO               SUCCESS — completed in 1.1s
+2026-03-28 19:40:03  INFO      
+2026-03-28 19:40:03  INFO      =================================================================
+2026-03-28 19:40:03  INFO      PIPELINE COMPLETE — SUMMARY
+2026-03-28 19:40:03  INFO      =================================================================
+2026-03-28 19:40:03  INFO      Total duration : 51.3s
+2026-03-28 19:40:03  INFO      Successful     : 7 / 7
+2026-03-28 19:40:03  INFO      Failed         : 0
+2026-03-28 19:40:03  INFO      Skipped        : 0
+2026-03-28 19:40:03  INFO      
+2026-03-28 19:40:03  INFO        [OK] Stage 1 — Data foundation                10.0s  SUCCESS
+2026-03-28 19:40:03  INFO        [OK] Stage 2 — Channel attribution            7.6s  SUCCESS
+2026-03-28 19:40:03  INFO        [OK] Stage 3 — Funnel analysis                8.1s  SUCCESS
+2026-03-28 19:40:03  INFO        [OK] Stage 4 — CAC / LTV                      7.9s  SUCCESS
+2026-03-28 19:40:03  INFO        [OK] Stage 5 — Segmentation                   9.4s  SUCCESS
+2026-03-28 19:40:03  INFO        [OK] Stage 6 — SQL analysis                   7.3s  SUCCESS
+2026-03-28 19:40:03  INFO        [OK] Stage 7 — Report generation              1.1s  SUCCESS
+2026-03-28 19:40:03  INFO      
+2026-03-28 19:40:03  INFO      Full log saved to: C:\Users\Mayank Joshi\Downloads\Marketing_Channel_Project\logs\pipeline_20260328_193912.log
+2026-03-28 19:40:03  INFO      =================================================================
